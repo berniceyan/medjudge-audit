@@ -1,5 +1,5 @@
 # Track A run 1: 3 judges × v1 × 2,000 meta-eval items
-
+import time
 import hashlib, json, random
 from pathlib import Path
 from judgeaudit.data import load_examples
@@ -12,6 +12,7 @@ def conv_text(messages: list[dict]) -> str:
     return "\n\n".join(f"{m['role']}: {m['content']}" for m in messages)
 
 def main():
+    start = time.time() 
     items = load_examples("meta_eval")
     random.Random(0).shuffle(items)
     items = items[:2000]
@@ -54,8 +55,11 @@ def main():
                                     "theme": theme,
                                     "response_len": len(response),
                 }) + "\n")
-            if (i + 1) % 50 == 0:
-                print(f"{i+1}/{len(items)}")
+                
+            if (i + 1) % 5 == 0:
+                rate = (time.time() - start) / (i + 1)
+                left = rate * (len(items) - i - 1) / 3600
+                print(f"{i+1}/{len(items)}  ~{left:.1f}h remaining", flush=True)
 
 if __name__ == "__main__":
     main()
