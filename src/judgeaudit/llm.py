@@ -55,6 +55,8 @@ def chat(model:str, messages:list, temperature: float = 0.0, run_tag: str = "") 
             return row[0]
         resp = _call_api(model, messages, temperature)
         text = resp.choices[0].message.content
+        if not text:
+            raise ValueError(f"empty response from {model}")   
         conn.execute("INSERT OR REPLACE INTO cache VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)",
                     (key, model, json.dumps(payload), text, resp.usage.prompt_tokens, resp.usage.completion_tokens))
         conn.commit()

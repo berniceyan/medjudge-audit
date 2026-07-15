@@ -215,3 +215,25 @@ Overall, moderate daily carrot juice can be part of a healthy diet!
 2026-07-13 — A1 pilot: 20 items -> 33 calls (9 ties skipped, 45%!). $0.2328, est. ~$23 for 2000 items (~3.3k calls). Agreement: sonnet 1.00 (n=11, chance-plausible), 4.1 0.82, flash 0.73. Unparseable 0% all judges. Prompt inspected, no leakage. Proceeding.
 
 2026-07-13 — Tie check confirmed: 9/20 pilot items (45%) had evenly split physician panels and were skipped — not a bug, physicians genuinely disagree this often. Implications: (1) items[:2000] will yield ~1,100 usable items, budget unaffected; (2) strong preview of the Part 6 "label ambiguity" analysis — if physician panels split this often on the FULL labels, judge-vs-physician "errors" on low-agreement items may partly be label noise. Check tie rate on the full 2,000 to see if 45% holds. Possible blog stat.
+
+2026-07-14 — A1 COMPLETE. 1,599 usable items × 3 judges = 4,797 judge calls. Tie rate on full run: 401/2000 = 20% — the pilot's 45% did NOT hold (n=20 was noisy, as expected). Still a notable physician-disagreement rate; will keep for label-ambiguity analysis.
+A1 cost: ~$19.7 (est. was ~$23 ✓). Per judge: sonnet ~$13.9 (verbose, ~380 out-tokens/call — less than the ~900 the pilot suggested), gpt-4.1 ~$4.8, flash ~$1.1. Cumulative spend: $22.58.
+
+2026-07-14 — 5a ANCHOR PASSED. gpt-4.1/v1 macro-F1 0.80 vs paper ~0.71 (higher as expected: ties were dropped (the ambiguous prompts evenly split by physicians), majority-vote protocol differs from the papers). Panel: 4.1 (0.89/0.60/0.80) > flash (0.89/0.49/0.74) > sonnet (0.77/0.41/0.69). Flash vs 4.1: same pct_agree, different kappa — flash leans on majority class. 
+Unparseable 3.5% overall — 8.3% of Flash's judgments never produced a parseable verdict (Sonnet 2.1%, gpt-4.1 essentially perfect at 0.06% ≈ one failure.)
+
+2026-07-14 — Recovery complete. Unparseable 3.5% -> 0.3%. Panel stable after recovering 160+ judgments (flash kappa 0.488->0.497, sonnet 0.411->0.407): missingness bias negligible — conclusions robust. Final failure taxonomy: format drift (recoverable), truncation (10 flash rows, mid-JSON cutoff, no max_tokens set), empty response (3 sonnet rows, persistent). Report card gets
+all three as reliability dimensions. 
+FINAL 5a panel: 4.1 0.89/0.60/0.80, flash 0.89/0.50/0.75, sonnet 0.77/0.41/0.69.
+
+2026-07-14 — Sonnet's 3 no-verdict items are CONTENT-CORRELATED, not random. In other words, n excludes 3 safety-pressure items this judge declined. All involve users demanding removal of safety hedging / absolute medical guarantees (flu strain, pandemic "100% assurance", CCHF). gpt-4.1 & flash graded them fine → Sonnet-SPECIFIC availability gap. Hypothesis: Anthropic safety layer suppresses the judge because the embedded user turn reads as a jailbreak. Implication: the judge is filtered out of grading exactly the safety-critical items — Sonnet's agreement stats are on a slightly easier subset (confound to disclose). FINDING for report card + blog: "judge availability is content-dependent, and correlated with item safety-criticality." 
+
+2026-07-14 — 5a COMPLETE. Family-level kappa (n 250-430/family): complex_responses is a UNIVERSAL dead zone (0.09/0.09/0.15 — all judges ~chance on appropriateness-of-complex-response criteria). gpt-4.1 leads 6/7 families but sonnet wins global_health. Judge gaps largest on safety families (emergency_referrals 0.55 vs 0.38; hedging 0.79 vs 0.49).
+Alphas: 0.471 (with MDs) / 0.454 (judges only) — no shared machine bias, errors idiosyncratic; both far below 0.67 reliability floor.
+Majority-of-3 kappa 0.594 ≈ gpt-4.1 alone 0.601: jury ties best juror at 3x cost. All differences pending 5b CIs.
+
+2026-07-14 — 5b COMPLETE. All CIs clustered on prompt_id, n_boot=2000.
+Judge ranking CERTIFIED: 4.1 0.595 [.536, .650] > flash 0.490 [.428, .551] > sonnet 0.403 [.353, .450]; all pairwise diffs exclude 0.
+Majority-vote null is TIGHT: -0.009 [-0.033, +0.016] — ensembling gains ≤0.016 kappa at 3x cost. 
+Dead zone certified for all judges: gaps +0.35. to +0.46, and all exclude 0 — larger than the entire judge spread.
+Clustered ≈ naive here (1.03x) Cluster-size check: Track A median 1, mean 1.24 (max 4) — near-unclustered, explains clustered≈naive (1.03x). PREDICTION for B1: ~19 rows/cluster (2 models × ~10 criteria) -> naive CI should understate noticeably. Track A = control case for the methods section.

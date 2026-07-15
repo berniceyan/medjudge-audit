@@ -1,4 +1,4 @@
-import json
+import json, re
 from judgeaudit.llm import chat
 
 PROMPT_VARIANTS = {
@@ -62,15 +62,30 @@ def render(variant: str, conversation: str, response: str, criterion: str) -> st
 
 def parse_grade(raw: str) -> bool | None:
     """Parse the model's JSON output into a boolean based on if it satisfies the criterion. Return None if parsing fails. Track the None rate per judge."""
+    # for empty or None API response
+    if not raw: 
+        return None
+    # 1) preferred: a JSON object anywhere in the output
     try:
         start, end = raw.find("{"), raw.rfind("}") + 1
-        return bool(json.loads(raw[start:end])["criteria_met"])
+        if start != -1:
+            return bool(json.loads(raw[start:end])["criteria_met"])
     except Exception:
-        return None
+        pass
+
+    # 2) fallback: bare "criteria_met: true/false" (some judges skip the JSON)
+    m = re.findall(r"criteria_met[\"']?\s*[:=]\s*[\"']?(true|false)", raw, re.I)
+    if m:
+        return m[-1].lower() == "true"   # last occurrence = final verdict
+    return None
+
 
 def grade_one(judge_model: str, variant: str, conversation: str, response: str, criterion: str, run_tag: str = "") -> bool | None:
     """Grade a single response against a single criterion. Return True/False if the model's output is parseable, else None."""
     prompt = render(variant, conversation, response, criterion)
-    raw = chat(judge_model, [{"role": "user", "content": prompt}], temperature=0.0, run_tag=run_tag)
+    try: 
+        raw = chat(judge_model, [{"role": "user", "content": prompt}], temperature=0.0, run_tag=run_tag)
+    except ValueError:
+        return None
     return parse_grade(raw)
 
