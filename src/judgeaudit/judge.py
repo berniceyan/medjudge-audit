@@ -80,12 +80,11 @@ def parse_grade(raw: str) -> bool | None:
     return None
 
 
-def grade_one(judge_model: str, variant: str, conversation: str, response: str, criterion: str, run_tag: str = "") -> bool | None:
+def grade_one(judge_model, variant, conversation, response, criterion, run_tag: str = "", temperature: float = 0.0) -> bool | None:
     """Grade a single response against a single criterion. Return True/False if the model's output is parseable, else None."""
     prompt = render(variant, conversation, response, criterion)
-    try: 
-        raw = chat(judge_model, [{"role": "user", "content": prompt}], temperature=0.0, run_tag=run_tag)
+    try:
+        raw = chat(judge_model, [{"role": "user", "content": prompt}], temperature=temperature, run_tag=run_tag)
     except ValueError:
         return None
     return parse_grade(raw)
-
