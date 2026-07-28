@@ -1,4 +1,4 @@
-# judgeaudit: a reliability audit for LLM-as-judge medical evals
+# medjudge-audit: a reliability audit for LLM-as-judge medical evals
 
 ![Where model scores actually come from](docs/fig_variance.png)
 
