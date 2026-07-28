@@ -4,7 +4,9 @@ import pandas as pd
 def cluster_bootstrap(df: pd.DataFrame, stat_fn, cluster_col: str = "prompt_id",
                       n_boot: int = 2000, seed: int = 0) -> tuple[float, float, float]:
     """(point, ci_low, ci_high) for stat_fn(df), resampling whole clusters with replacement. 
-    Clusters = conversations: their rows rise and fall together, so they must be resampled together."""
+    Clusters = conversations: Conversations are the true independent units.
+    All evaluation rows belonging to the same conversation share difficulty and 
+    should be kept together during statistical resampling."""
     rng = np.random.default_rng(seed)
     df = df.reset_index(drop=True)
     idx = {c: g.to_numpy() for c, g in df.groupby(cluster_col).groups.items()}
@@ -18,7 +20,7 @@ def cluster_bootstrap(df: pd.DataFrame, stat_fn, cluster_col: str = "prompt_id",
     return stat_fn(df), lo, hi
 
 def naive_bootstrap(df: pd.DataFrame, stat_fn, n_boot: int = 2000, seed: int = 0) -> tuple[float, float, float]:
-    """Row-level resampling — WRONG for clustered data. Exists to show how much it understates uncertainty."""
+    """Row-level resampling — WRONG for clustered data. Exists as comparison."""
     rng = np.random.default_rng(seed)
     df = df.reset_index(drop=True)
     stats = np.empty(n_boot)

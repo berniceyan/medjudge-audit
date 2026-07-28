@@ -1,4 +1,4 @@
-# scripts/run_b1.py — Track B run 1: gpt-4.1 × v1 × (402 examples × 2 models × ~10 criteria)
+# scripts/run_b1.py — Track B run 1: gpt-4.1 judge × v1 variant × (402 examples × 2 models × ~10 criteria)
 import json
 import time
 from pathlib import Path
@@ -7,6 +7,7 @@ from judgeaudit.judge import grade_one
 
 OUT = Path("results/grades_track_b1.jsonl")
 OUT.parent.mkdir(exist_ok=True)
+
 JUDGE = "openai/gpt-4.1"
 
 def conv_text(messages):

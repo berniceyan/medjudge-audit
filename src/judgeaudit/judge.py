@@ -76,7 +76,7 @@ def parse_grade(raw: str) -> bool | None:
     # 2) fallback: bare "criteria_met: true/false" (some judges skip the JSON)
     m = re.findall(r"criteria_met[\"']?\s*[:=]\s*[\"']?(true|false)", raw, re.I)
     if m:
-        return m[-1].lower() == "true"   # last occurrence = final verdict
+        return m[-1].lower() == "true"   # last occurrence = final verdict 
     return None
 
 

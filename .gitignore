@@ -6,3 +6,7 @@ __pycache__/
 .venv/
 .claude/
 .ruff_cache/
+*.egg-info
+build/
+report.md
+report_full.md

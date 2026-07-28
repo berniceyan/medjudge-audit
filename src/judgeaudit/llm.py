@@ -6,10 +6,17 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 
 load_dotenv()
 
-client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key=os.environ["OPENROUTER_API_KEY"],
-)
+_client = None
+
+def _get_client() -> OpenAI:
+    """Instantiate the OpenAI client lazily, on first API call. Importing this module
+    (or anything that imports it, e.g. judge.py) must NOT require the API key — that
+    keeps `judgeaudit report`, the demo, and the pure-parser tests runnable with no key."""
+    global _client
+    if _client is None:
+        _client = OpenAI(base_url="https://openrouter.ai/api/v1",
+                         api_key=os.environ["OPENROUTER_API_KEY"])
+    return _client
 
 DB = "results/llm_cache.sqlite"
 
@@ -34,7 +41,7 @@ def _key(payload: dict) -> str:
 
 @retry(stop=stop_after_attempt(5), wait=wait_exponential(min=1, max=60))
 def _call_api(model: str, messages: list, temperature: float):
-    return client.chat.completions.create(
+    return _get_client().chat.completions.create(
         model=model, messages=messages, temperature=temperature
     )
 
