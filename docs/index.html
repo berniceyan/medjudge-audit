@@ -95,6 +95,8 @@
     font:13px/1.7 ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif; color:var(--muted);
   }
   @media(max-width:560px){ header{padding-top:48px} body{font-size:16px} }
+
+  .reverse-email { direction: rtl; unicode-bidi: bidi-override; }
 </style>
 </head>
 <body>
@@ -202,7 +204,7 @@ print(report_card(track_a))                               # agreement + uncertai
 <div class="note">Everything here is reproducible. Code and the full analysis notebooks are on <a href="https://github.com/berniceyan/medjudge-audit">GitHub</a>. Happy to discuss the results or walk through the implementation.</div>
 
 <footer>
-  <p>medjudge-audit · Bernice Yan, MD · <a href="mailto:berniceyyan.md@gmail.com">berniceyyan.md@gmail.com</a></p>
+  <p>medjudge-audit · Bernice Yan, MD · <span class="reverse-email">moc.liamg@dm.nayyecinreb</span></p>
 </footer>
 
 </div>
