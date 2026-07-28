@@ -188,7 +188,7 @@ from judgeaudit import report_card, cluster_bootstrap, power_curve
 
 track_a = pd.read_json("your_grades.jsonl", lines=True)   # judge vs human labels
 print(report_card(track_a))                               # agreement + uncertainty</code></pre>
-<p><strong>Track A rows</strong> (agreement): <code>judge_model, variant, grade, physician_label, prompt_id</code>. <strong>Track B rows</strong> (optional grid → sensitivity + power): <code>response_model, judge_model, variant, run_tag, criterion_idx, points, grade, prompt_id</code>.</p>
+<p><strong>Track A rows</strong> (agreement): <code>judge_model, variant, grade, physician_label, prompt_id</code>. <p><strong>Track B rows</strong> (optional grid → sensitivity + power): <code>response_model, judge_model, variant, run_tag, criterion_idx, points, grade, prompt_id</code>.</p></p>
 
 <h2>Limitations</h2>
 <ul>
@@ -199,10 +199,10 @@ print(report_card(track_a))                               # agreement + uncertai
   <li><strong>The config space is small by design</strong> (≤3 judges, ≤4 prompt variants), so the reported spreads are <em>minimums</em>. A larger grid could only widen them.</li>
 </ul>
 
-<div class="note">Source code is in a private repository. Happy to walk through the implementation or share access on request.</div>
+<div class="note">Everything here is reproducible. Code and the full analysis notebooks are on <a href="https://github.com/berniceyan/medjudge-audit">GitHub</a>. Happy to discuss the results or walk through the implementation.</div>
 
 <footer>
-  <p>medjudge-audit · Bernice Yan · <a href="mailto:berniceyyan.md@gmail.com">berniceyyan.md@gmail.com</a></p>
+  <p>medjudge-audit · Bernice Yan, MD · <a href="mailto:berniceyyan.md@gmail.com">berniceyyan.md@gmail.com</a></p>
 </footer>
 
 </div>
