@@ -1,4 +1,4 @@
-# scripts/make_report.py — assemble the 5e report card from all tracks.
+# scripts/make_report.py — assemble the report card from all tracks.
 import pandas as pd
 from pathlib import Path
 from judgeaudit.report import report_card

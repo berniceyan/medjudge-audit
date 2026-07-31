@@ -198,7 +198,7 @@ print(report_card(track_a))                               # agreement + uncertai
   <li><strong>Physician labels are not perfect ground truth.</strong> Panels are 2–3 physicians and disagree often (evenly-split panels are dropped). Some apparent judge errors are label noise, but the labels still set the ceiling on measurable agreement.</li>
   <li><strong>Self-preference is underpowered.</strong> At n=100 the judge×model interaction CI includes zero, and no judge in the grid is also a response model, so only provider-level affinity was testable.</li>
   <li><strong>Two response models, a wide gap.</strong> The power and variance results are anchored on one model pair.</li>
-  <li><strong>The config space is small by design</strong> (≤3 judges, ≤4 prompt variants), so the reported spreads are <em>minimums</em>. A larger grid could only widen them.</li>
+  <li><strong>The config space is small by design</strong> (≤3 judges, ≤3 prompt variants), so the reported spreads are <em>minimums</em>. A larger grid could only widen them.</li>
 </ul>
 
 <div class="note">Everything here is reproducible. Code and the full analysis notebooks are on <a href="https://github.com/berniceyan/medjudge-audit">GitHub</a>. Happy to discuss the results or walk through the implementation.</div>

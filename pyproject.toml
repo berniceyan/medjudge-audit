@@ -1,10 +1,10 @@
 [project]
 name = "judgeaudit"
 version = "0.1.0"
-description = "Add your description here"
+description = "medjudge-audit: a reliability audit for LLM-as-judge medical evals"
 readme = "README.md"
 authors = [
-    { name = "berniceyan", email = "berniceyyan@gmail.com" }
+    { name = "berniceyan", email = "berniceyyan.md@gmail.com" }
 ]
 requires-python = ">=3.12"
 dependencies = [

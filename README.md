@@ -70,9 +70,9 @@ Pass `ref_judge=` / `ref_variant=` to `report_card` to set the canonical config 
 
 ## Methods notes
 
-- **Ground truth is multi-physician, never the author.** Track A re-grades triples that physicians already labelled; we audit agreement and *characterize* disagreements. We never act as a sole grader.
+- **Ground truth is multi-physician.** Track A re-grades triples that physicians already labelled; we audit agreement and *characterize* disagreements.
 - **Cluster every CI by conversation.** Criteria within a conversation are correlated. Treating them as independent understates uncertainty. `cluster_bootstrap` resamples whole conversations.
-- **Scores use the HealthBench recipe.** Sum of points for met criteria over the sum of positive points, clipped at 0; negative-point (harm) criteria can only subtract.
+- **Scores use the HealthBench formula.** Sum of points for met criteria over the sum of positive points, clipped at 0; negative-point (harm) criteria can only subtract.
 - **Every random step is seeded** and every figure regenerates identically.
 
 ## Limitations
@@ -81,7 +81,7 @@ Pass `ref_judge=` / `ref_variant=` to `report_card` to set the canonical config 
 - **Physician labels are not perfect ground truth.** Panels are 2–3 physicians and disagree often (evenly-split panels are dropped as "not ground truth"). Some apparent judge errors are label noise, but the physician labels still set the ceiling on measurable agreement.
 - **Self-preference is underpowered.** With n=100 the judge×model interaction CI includes zero (inconclusive), and no judge in the grid is *also* a response model, so only provider-level affinity was even testable.
 - **Two response models, a wide gap.** The power and variance results are anchored on one model pair with a real quality gap.
-- **Judge/response-model set is fixed** and small (≤3 judges, ≤4 prompt variants), which was a deliberate scope choice, so the reported spreads are *minimums*. A larger config space could only widen them.
+- **Judge/response-model set is fixed** and small (≤3 judges, ≤3 prompt variants), which was a deliberate scope choice, so the reported spreads are *minimums*. A larger config space could only widen them.
 
 ## Repo layout
 

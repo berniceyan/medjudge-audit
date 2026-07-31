@@ -1,4 +1,4 @@
-"""judgeaudit — a reliability audit toolkit for LLM-as-judge rubric evals.
+"""judge-audit: a reliability audit toolkit for LLM-as-judge rubric evals.
 
 Public API:
     report_card(track_a, track_b=None) -> markdown reliability report
