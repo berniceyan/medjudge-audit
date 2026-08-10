@@ -71,6 +71,15 @@
     color:var(--muted); padding:16px 0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
   }
   .meta b{color:var(--fg); font-weight:600}
+  /* Keyword chips: what this project is, at a glance, before the dense
+     benchmark/judge metadata bar. */
+  .tags{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 26px}
+  .tag{
+    font:500 12px/1 ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+    letter-spacing:.02em; color:var(--muted);
+    border:1px solid var(--rule); border-radius:99px; padding:7px 12px;
+    background:var(--card); white-space:nowrap;
+  }
   h2{
     font:600 13px/1 ui-sans-serif,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
     letter-spacing:.13em; text-transform:uppercase; color:var(--muted);
@@ -151,6 +160,15 @@
 <header>
   <h1>medjudge-audit: a reliability audit for LLM-as-judge medical evals</h1>
   <p class="sub">LLM judges decide medical-AI leaderboards, but nobody reports the judge's error bars.</p>
+  <div class="tags">
+    <span class="tag">LLM-as-judge reliability</span>
+    <span class="tag">Judge&ndash;physician agreement</span>
+    <span class="tag">Clustered bootstrap CIs</span>
+    <span class="tag">Variance decomposition</span>
+    <span class="tag">Statistical power</span>
+    <span class="tag">Benchmark methodology</span>
+    <span class="tag">Python &middot; pandas &middot; statsmodels</span>
+  </div>
   <div class="meta">
     <b>Benchmark:</b> OpenAI HealthBench, physician-labelled meta-evaluation &nbsp;·&nbsp;
     <b>Judges:</b> gpt-4.1 (official HealthBench grader), claude-sonnet-4.5, gemini-2.5-flash &nbsp;·&nbsp;

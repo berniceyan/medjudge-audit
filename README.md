@@ -1,8 +1,10 @@
 # medjudge-audit: a reliability audit for LLM-as-judge medical evals
 
-![Where model scores actually come from](docs/fig_variance.png)
-
 **LLM judges decide medical-AI leaderboards, but nobody reports the judge's error bars.** This toolkit re-grades OpenAI HealthBench's physician-labelled meta-evaluation with a grid of LLM judges and measures what usually goes unmeasured: how well judges agree with physicians, how much a model's score moves when you change the judge or the prompt wording rather than the model, and whether a typical eval even has the statistical power to call a winner. The headline: **on this benchmark, switching the judge's prompt wording moves a model's score almost as much as the entire gap between the two models being compared.**
+
+Check out the html version of the results here: https://berniceyan.github.io/medjudge-audit/
+
+![Where model scores actually come from](docs/fig_variance.png)
 
 ## Quickstart (no API key)
 
