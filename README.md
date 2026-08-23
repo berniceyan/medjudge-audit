@@ -9,7 +9,7 @@ Check out the html version of the results here: https://berniceyan.github.io/med
 ## Quickstart (no API key)
 
 ```bash
-git clone <your-repo-url> medjudge-audit && cd medjudge-audit
+git clone https://github.com/berniceyan/medjudge-audit && cd medjudge-audit
 uv sync                      # or: pip install -e .
 judgeaudit report demo_grades.jsonl --track-b demo_grades_track_b.jsonl -o report.md
 # or open demo.ipynb and Run All — renders the report card in under a minute
